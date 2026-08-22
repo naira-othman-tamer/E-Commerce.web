@@ -1,4 +1,6 @@
 
+using Microsoft.EntityFrameworkCore;
+using Persistence.Data;
 using Scalar.AspNetCore;
 
 namespace E_Commerce.Web
@@ -9,12 +11,19 @@ namespace E_Commerce.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
+            #region Add services to the container.
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+            builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<StoreDbContext>(opt =>
+            {
+                opt.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
+            });
+            #endregion
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
