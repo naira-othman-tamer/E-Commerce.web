@@ -13,26 +13,29 @@ public class DataSeeding(StoreDbContext _dbContext) : IDataSeeding
         {
             if (_dbContext.Database.GetPendingMigrations().Any())
             {
-                _dbContext.Database.Migrate();
+                await _dbContext.Database.MigrateAsync();
             }
 
-            if (!_dbContext.ProductBrands.Any())
+            if (!await _dbContext.ProductBrands.AnyAsync())
             {
+                //var productBrandData = await File
+                //      .ReadAllTextAsync(@"..\Infrastructure\Persistence\Datavar productBrandData = await File
                 var productBrandData = File
-                                        .ReadAllText(@"..\Infrastructure\Persistence\Data\DataSeedAsync\brands.json");
-                var productBrands = JsonSerializer
-                                         .Deserialize<List<ProductBrand>>(productBrandData);
+                      .OpenRead(@"..\Infrastructure\Persistence\Data\DataSeedAsync\brands.json");
+                var productBrands = await JsonSerializer
+                                         .DeserializeAsync<List<ProductBrand>>(productBrandData);
+
                 if (productBrands is not null && productBrands.Any())
                 {
                     _dbContext.ProductBrands.AddRange(productBrands);
                 }
             }
 
-            if (!_dbContext.ProductTypes.Any())
+            if (!await _dbContext.ProductTypes.AnyAsync())
             {
 
-                var productTypeData = File
-                                        .ReadAllText(@"..\Infrastructure\Persistence\Data\DataSeedAsync\types.json");
+                var productTypeData = await File
+                       .ReadAllTextAsync(@"..\Infrastructure\Persistence\Data\DataSeedAsync\types.json");
                 var productTypes = JsonSerializer
                                          .Deserialize<List<ProductType>>(productTypeData);
                 if (productTypes is not null && productTypes.Any())
@@ -41,11 +44,11 @@ public class DataSeeding(StoreDbContext _dbContext) : IDataSeeding
                 }
             }
 
-            if (!_dbContext.Products.Any())
+            if (!await _dbContext.Products.AnyAsync())
             {
 
-                var productData = File
-                                        .ReadAllText(@"..\Infrastructure\Persistence\Data\DataSeedAsync\products.json");
+                var productData = await File
+                    .ReadAllTextAsync(@"..\Infrastructure\Persistence\Data\DataSeedAsync\products.json");
                 var products = JsonSerializer
                                          .Deserialize<List<Product>>(productData);
                 if (products is not null && products.Any())
