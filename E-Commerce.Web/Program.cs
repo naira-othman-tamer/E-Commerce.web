@@ -2,6 +2,7 @@
 using Domain.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
+using Persistence.Repositories;
 using Scalar.AspNetCore;
 
 namespace E_Commerce.Web
@@ -19,7 +20,7 @@ namespace E_Commerce.Web
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<IDataSeeding, DataSeeding>();
-
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddDbContext<StoreDbContext>(opt =>
             {
                 opt.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
