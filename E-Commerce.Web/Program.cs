@@ -22,6 +22,7 @@ public class Program {
         builder.Services.AddScoped<IDataSeeding, DataSeeding>();
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
         builder.Services.AddScoped<IServiceManager, ServiceManager>();
+        builder.Services.AddHttpContextAccessor();
         builder.Services.AddDbContext<StoreDbContext>(opt =>
         {
             opt.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
@@ -43,7 +44,6 @@ public class Program {
         {
             throw;
         }
-
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
@@ -53,8 +53,8 @@ public class Program {
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
         app.UseHttpsRedirection();
+        app.UseStaticFiles();
         app.UseAuthorization();
         app.MapControllers();
         app.Run();
