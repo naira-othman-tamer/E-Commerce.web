@@ -15,7 +15,7 @@ public class DataSeeding(StoreDbContext _dbContext) : IDataSeeding {
                 //var productBrandData = await File
                 //      .ReadAllTextAsync(@"..\Infrastructure\Persistence\Datavar productBrandData = await File
                 var productBrandData = File
-                      .OpenRead(@"..\Infrastructure\Persistence\Data\DataSeedAsync\brands.json");
+                      .OpenRead(@"..\Infrastructure\Persistence\Data\DataSeed\brands.json");
                 var productBrands = await JsonSerializer
                                          .DeserializeAsync<List<ProductBrand>>(productBrandData);
                 if (productBrands is not null && productBrands.Any()) {
@@ -25,7 +25,7 @@ public class DataSeeding(StoreDbContext _dbContext) : IDataSeeding {
 
             if (!await _dbContext.ProductTypes.AnyAsync()) {
                 var productTypeData = await File
-                       .ReadAllTextAsync(@"..\Infrastructure\Persistence\Data\DataSeedAsync\types.json");
+                       .ReadAllTextAsync(@"..\Infrastructure\Persistence\Data\DataSeed\types.json");
                 var productTypes = JsonSerializer
                                          .Deserialize<List<ProductType>>(productTypeData);
                 if (productTypes is not null && productTypes.Any()) {
@@ -35,7 +35,7 @@ public class DataSeeding(StoreDbContext _dbContext) : IDataSeeding {
 
             if (!await _dbContext.Products.AnyAsync()) {
                 var productData = await File
-                    .ReadAllTextAsync(@"..\Infrastructure\Persistence\Data\DataSeedAsync\products.json");
+                    .ReadAllTextAsync(@"..\Infrastructure\Persistence\Data\DataSeed\products.json");
                 var products = JsonSerializer
                                          .Deserialize<List<Product>>(productData);
                 if (products is not null && products.Any()) {
@@ -44,7 +44,9 @@ public class DataSeeding(StoreDbContext _dbContext) : IDataSeeding {
             }
                 await _dbContext.SaveChangesAsync();
          }
-        catch (Exception ex) { }
+        catch (Exception ex) {
+            Console.WriteLine(ex.Message);
+        }
      }
  }
 

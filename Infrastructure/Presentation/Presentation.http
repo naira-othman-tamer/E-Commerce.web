@@ -1,0 +1,18 @@
+﻿@Presentation_HostAddress = http://localhost:5156
+
+GET {{Presentation_HostAddress}}/api/Products
+
+###
+
+GET {{Presentation_HostAddress}}/api/Products/brands
+
+###
+
+GET {{Presentation_HostAddress}}/api/Products/types
+
+###
+
+@id=10
+GET {{Presentation_HostAddress}}/api/Products/{{id}}
+
+###
