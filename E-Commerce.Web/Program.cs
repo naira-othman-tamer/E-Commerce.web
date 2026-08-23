@@ -21,7 +21,7 @@ public class Program {
         builder.Services.AddSwaggerGen();
         builder.Services.AddScoped<IDataSeeding, DataSeeding>();
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-        builder.Services.AddScoped<IProductService, ProductService>();
+        builder.Services.AddScoped<IServiceManager, ServiceManager>();
         builder.Services.AddDbContext<StoreDbContext>(opt =>
         {
             opt.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
