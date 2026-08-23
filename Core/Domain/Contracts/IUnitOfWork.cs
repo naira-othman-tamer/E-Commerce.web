@@ -1,9 +1,7 @@
 ﻿using Domain.Models;
-
 namespace Domain.Contracts;
 
-public interface IUnitOfWork
-{
+public interface IUnitOfWork{
     /// <summary>
     /// start Get Type Name , if Object already Created return it , it not create a new Object - Use Dictionary
     /// </summary>

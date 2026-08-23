@@ -1,5 +1,2 @@
 ﻿namespace Persistence;
-
-public class AssemblyRefrences
-{
-}
+public class AssemblyRefrences{}

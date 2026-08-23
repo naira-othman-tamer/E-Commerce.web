@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models;
 
-public class Product : BaseEntity<int>  {
+public class Product : BaseEntity<int>{
     public string Name { get; set; } = default!;
     public string Description { get; set; } = default!;
     public string PictureUrl { get; set; } = default!;

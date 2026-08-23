@@ -1,7 +1,6 @@
 ﻿namespace Domain.Contracts;
 
-public interface IDataSeeding
-{
+public interface IDataSeeding{
     /// <summary>
     /// First Check if any pending migration => apply migration , Then Seed Data,
     /// Seed  only if no Data at DbSet
