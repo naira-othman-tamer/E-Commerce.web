@@ -3,14 +3,14 @@ using Domain.Models;
 using System.Linq.Expressions;
 namespace ServiceImplementation.Specifications;
 
-public abstract class BaseSpecification<TEntity, TKey> : ISpecifications<TEntity, TKey> where TEntity : BaseEntity<TKey>
+public abstract class BaseSpecification<TEntity, TKey> 
+    : ISpecifications<TEntity, TKey> where TEntity : BaseEntity<TKey>
 {
     /// <summary>
     /// Initializes a new specification with an optional filtering criterion.
     /// </summary>
     /// <param name="CriteriaExpression">
-    /// An expression that defines the filtering condition for the entity,
-    /// or null if no filtering is required.
+    /// An optional expression that defines the filtering criteria for the entity.
     /// </param>
     protected BaseSpecification(Expression<Func<TEntity,bool>>? CriteriaExpression)
     {

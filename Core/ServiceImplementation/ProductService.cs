@@ -13,17 +13,27 @@ public class ProductService(
     IUnitOfWork _unitOfWork,
     IMapper _mapper ) : IProductService {
     /// <summary>
-    /// Retrieves all products along with their associated brand and type,
-    /// then maps them to product DTOs.
+    /// Retrieves products along with their associated brand and type,
+    /// optionally filtered by brand ID and/or type ID, then maps them to product DTOs.
     /// </summary>
+    /// <param name="BrandId">
+    /// The optional ID of the brand used to filter the products.
+    /// If null, products from all brands are included.
+    /// </param>
+    /// <param name="TypeId">
+    /// The optional ID of the product type used to filter the products.
+    /// If null, products from all types are included.
+    /// </param>
     /// <returns>
-    /// A collection of <see cref="ProductDto"/> objects representing all products.
+    /// A collection of <see cref="ProductDto"/> objects representing the filtered products.
     /// </returns>
-    public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(){
-        var Repo = _unitOfWork.GetRepository<Product, int>();
-        var specifications = new ProductWithBrandAndTypeSpecifications();
-        var Products = await Repo.GetAllAsync(specifications);
-        IEnumerable<ProductDto> productsList = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
+    public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(int? BrandId , int? TypeId) {
+        var specifications = new ProductWithBrandAndTypeSpecifications(BrandId, TypeId);
+        var Products = await _unitOfWork
+                      .GetRepository<Product, int>()
+                      .GetAllAsync(specifications);
+        IEnumerable<ProductDto> productsList = _mapper
+                               .Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
         return productsList;
     }
 

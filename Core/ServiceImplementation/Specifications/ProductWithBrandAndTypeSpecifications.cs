@@ -2,17 +2,27 @@
 
 namespace ServiceImplementation.Specifications;
 /// <summary>
-/// Defines specifications for retrieving products with their associated
-/// brand and type, optionally filtered by product ID.
+/// Defines a specification for retrieving products with their associated
+/// brand and type, optionally filtered by brand ID and/or type ID.
 /// </summary>
 public class ProductWithBrandAndTypeSpecifications : BaseSpecification<Product, int>
 {
     /// <summary>
-    /// Initializes a specification for retrieving products
-    /// with their associated brand and type.
+    /// Initializes a specification for retrieving products with their associated
+    /// brand and type, optionally filtering the results by brand ID and type ID.
     /// </summary>
-    public ProductWithBrandAndTypeSpecifications() 
-        : base(null)
+    /// <param name="BrandId">
+    /// The optional ID of the brand used to filter the products.
+    /// If null, products from all brands are included.
+    /// </param>
+    /// <param name="TypeId">
+    /// The optional ID of the product type used to filter the products.
+    /// If null, products from all types are included.
+    /// </param>
+    public ProductWithBrandAndTypeSpecifications(int? BrandId , int? TypeId) 
+        : base(p=>(!BrandId.HasValue || p.BrandId==BrandId)
+        &&
+        (!TypeId.HasValue || p.TypeId == TypeId))
     {
         AddIncludes(p => p.ProductBrand);
         AddIncludes(p => p.ProductType);
