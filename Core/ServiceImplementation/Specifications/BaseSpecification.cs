@@ -1,18 +1,36 @@
 ﻿using Domain.Contracts;
 using Domain.Models;
 using System.Linq.Expressions;
-
 namespace ServiceImplementation.Specifications;
 
 public abstract class BaseSpecification<TEntity, TKey> : ISpecifications<TEntity, TKey> where TEntity : BaseEntity<TKey>
 {
-    protected BaseSpecification(Expression<Func<TEntity,bool>> CriteriaExpression)
+    /// <summary>
+    /// Initializes a new specification with an optional filtering criterion.
+    /// </summary>
+    /// <param name="CriteriaExpression">
+    /// An expression that defines the filtering condition for the entity,
+    /// or null if no filtering is required.
+    /// </param>
+    protected BaseSpecification(Expression<Func<TEntity,bool>>? CriteriaExpression)
     {
         Criteria = CriteriaExpression;
     }
-    public Expression<Func<TEntity, bool>> Criteria { get; private set; }
-
+    /// <summary>
+    /// Gets the filtering expression used to define the WHERE condition of the query.
+    /// </summary>
+    public Expression<Func<TEntity, bool>>? Criteria { get; private set; }
+    /// <summary>
+    /// Gets the collection of expressions representing the navigation properties
+    /// that should be included in the query.
+    /// </summary>
     public List<Expression<Func<TEntity, object>>> IncludeExpressions { get; } = [];
+    /// <summary>
+    /// Adds a navigation property expression to the collection of includes.
+    /// </summary>
+    /// <param name="IncludeExpression">
+    /// An expression that identifies the navigation property to include in the query.
+    /// </param>
     protected void AddIncludes(Expression<Func<TEntity, object>> IncludeExpression) => 
         IncludeExpressions.Add(IncludeExpression);
 }

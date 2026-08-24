@@ -1,7 +1,11 @@
 ﻿namespace ServiceAbstraction;
-public interface IServiceManager{
+/// <summary>
+/// Provides access to the application's service implementations.
+/// </summary>
+public interface IServiceManager {
     /// <summary>
-    /// initialize using Lazy attribute
+    /// Gets the product service used to perform product-related operations.
+    /// The service instance is initialized lazily by the implementation.
     /// </summary>
     public IProductService ProductService { get; }
 }
