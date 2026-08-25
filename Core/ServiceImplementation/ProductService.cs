@@ -3,8 +3,8 @@ using Domain.Contracts;
 using Domain.Models;
 using ServiceAbstraction;
 using ServiceImplementation.Specifications;
+using Shared;
 using Shared.DTOs;
-using Shared.Enums;
 namespace ServiceImplementation;
 /// <summary>
 /// Provides application-level operations for retrieving products,
@@ -28,21 +28,20 @@ public class ProductService(
     /// <returns>
     /// A collection of <see cref="ProductDto"/> objects representing the filtered products.
     /// </returns>
-    public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(
-        int? BrandId,
-        int? TypeId,
-        ProductSortingOptions sortingOptions)     
+    public async Task<PaginatedResult<ProductDto>> GetAllProductsAsync(ProductQueryParams queryParams)
     {
-        var specifications = new ProductWithBrandAndTypeSpecifications(
-            BrandId,
-            TypeId,
-            sortingOptions);
-        var Products = await _unitOfWork
-                      .GetRepository<Product, int>()
-                      .GetAllAsync(specifications);
+        var Repo = _unitOfWork.GetRepository<Product, int>();
+        var specifications = new ProductWithBrandAndTypeSpecifications(queryParams);
+        var Products = await Repo.GetAllAsync(specifications);
+        int ProductsCount = Products.Count();
+        int TotalProductsCount = await Repo.CountAsync(new ProductCountSpecification(queryParams));
         IEnumerable<ProductDto> productsList = _mapper
                                .Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
-        return productsList;
+        return new PaginatedResult<ProductDto>(
+            queryParams.PageIndex,
+            ProductsCount,
+            TotalProductsCount,
+            productsList );
     }
 
     /// <summary>

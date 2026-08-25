@@ -28,6 +28,10 @@ static class SpecificationEvaluator
                     .Aggregate(Query, (currentQuery,
                     includeExpression) => currentQuery.Include(includeExpression));
         }
+        if(specifications.IsPaginated)
+        {
+            Query = Query.Skip(specifications.Skip).Take(specifications.Take);
+        }
         return Query;
     }
 }

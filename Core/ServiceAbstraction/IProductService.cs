@@ -1,8 +1,8 @@
-﻿using Shared.DTOs;
-using Shared.Enums;
+﻿using Shared;
+using Shared.DTOs;
 namespace ServiceAbstraction;
 public interface IProductService{
-    Task <IEnumerable<ProductDto>> GetAllProductsAsync(int? BrandId , int? TypeId, ProductSortingOptions sortingOptions);
+    Task <PaginatedResult<ProductDto>> GetAllProductsAsync(ProductQueryParams queryParams);
     Task <ProductDto> GetProductByIdAsync(int Id);
     Task<IEnumerable<TypeDto>> GetAllTypesAsync();
     Task<IEnumerable<BrandDto>> GetAllBrandsAsync();

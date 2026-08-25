@@ -41,9 +41,24 @@ public abstract class BaseSpecification<TEntity, TKey>
     public Expression<Func<TEntity, object>> orderBy { get; private set; }
 
     public Expression<Func<TEntity, object>> orderByDescending { get; private set; }
-
+ 
     protected void AddOrderBy(Expression<Func<TEntity, object>> OrderByExpression) => orderBy = OrderByExpression;
     protected void AddOrderByDescending(Expression<Func<TEntity, object>> OrderByDescindingExpression) => 
         orderByDescending = OrderByDescindingExpression;
+    #endregion
+
+    #region Pagination
+    public int Take { get; private set; }
+
+    public int Skip { get; private set; }
+
+    public bool IsPaginated { get; set; }
+
+    protected void ApplyPaginations(int PageSize, int PageIndex)
+    {
+        IsPaginated = true;
+        Take = PageSize;
+        Skip = (PageIndex - 1) * PageSize;
+    }
     #endregion
 }

@@ -9,4 +9,5 @@ public interface IGenericRepository<TEntity,Tkey> where TEntity : BaseEntity<Tke
     Task AddAsync(TEntity entity);
     void Update(TEntity entity); 
     Task Remove(TEntity entity);
+    Task<int> CountAsync(ISpecifications<TEntity, Tkey> specifications);
 }

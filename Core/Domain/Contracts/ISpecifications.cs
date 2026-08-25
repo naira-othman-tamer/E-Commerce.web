@@ -17,4 +17,8 @@ public interface ISpecifications<TEntity,TKey> where TEntity : BaseEntity<TKey>
 
     Expression<Func<TEntity,object>> orderBy { get; }
     Expression<Func<TEntity,object>> orderByDescending { get; }
+
+    public int Take { get; }
+    public int Skip { get; }
+    public bool IsPaginated { get; }
 }

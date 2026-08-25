@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Shared;
 using Shared.Enums;
 
 namespace ServiceImplementation.Specifications;
@@ -20,15 +21,20 @@ public class ProductWithBrandAndTypeSpecifications : BaseSpecification<Product, 
     /// The optional ID of the product type used to filter the products.
     /// If null, products from all types are included.
     /// </param>
-    public ProductWithBrandAndTypeSpecifications(int? BrandId , int? TypeId, ProductSortingOptions sortingOptions) 
-        : base(p=>(!BrandId.HasValue || p.BrandId==BrandId)
+    public ProductWithBrandAndTypeSpecifications(ProductQueryParams queryParams)
+        : base(p=> 
+        (!queryParams.BrandId.HasValue || p.BrandId== queryParams.BrandId)
         &&
-        (!TypeId.HasValue || p.TypeId == TypeId))
+        (!queryParams.TypeId.HasValue || p.TypeId == queryParams.TypeId)
+        &&
+        (String.IsNullOrWhiteSpace(queryParams.SearchValue) ||
+        p.Name.ToLower().Contains(queryParams.SearchValue.ToLower()))
+        )
     {
         AddIncludes(p => p.ProductBrand);
         AddIncludes(p => p.ProductType);
 
-        switch (sortingOptions)
+        switch (queryParams.sortingOptions)
         {
             case ProductSortingOptions.NameAsc:
                 AddOrderBy(p => p.Name);
@@ -45,6 +51,8 @@ public class ProductWithBrandAndTypeSpecifications : BaseSpecification<Product, 
             default:
                 break;
         }
+
+        ApplyPaginations(queryParams.PageSize, queryParams.PageIndex);
     }
     /// <summary>
     /// Initializes a specification for retrieving a specific product
