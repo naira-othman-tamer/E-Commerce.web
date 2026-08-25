@@ -14,4 +14,7 @@ public interface ISpecifications<TEntity,TKey> where TEntity : BaseEntity<TKey>
     /// that should be included in the query.
     /// </summary>
     public List<Expression<Func<TEntity,object>>> IncludeExpressions { get; }
+
+    Expression<Func<TEntity,object>> orderBy { get; }
+    Expression<Func<TEntity,object>> orderByDescending { get; }
 }

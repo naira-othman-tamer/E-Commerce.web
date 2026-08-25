@@ -4,6 +4,7 @@ using Domain.Models;
 using ServiceAbstraction;
 using ServiceImplementation.Specifications;
 using Shared.DTOs;
+using Shared.Enums;
 namespace ServiceImplementation;
 /// <summary>
 /// Provides application-level operations for retrieving products,
@@ -27,8 +28,15 @@ public class ProductService(
     /// <returns>
     /// A collection of <see cref="ProductDto"/> objects representing the filtered products.
     /// </returns>
-    public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(int? BrandId , int? TypeId) {
-        var specifications = new ProductWithBrandAndTypeSpecifications(BrandId, TypeId);
+    public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(
+        int? BrandId,
+        int? TypeId,
+        ProductSortingOptions sortingOptions)     
+    {
+        var specifications = new ProductWithBrandAndTypeSpecifications(
+            BrandId,
+            TypeId,
+            sortingOptions);
         var Products = await _unitOfWork
                       .GetRepository<Product, int>()
                       .GetAllAsync(specifications);
