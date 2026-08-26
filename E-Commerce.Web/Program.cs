@@ -1,4 +1,7 @@
 using Domain.Contracts;
+using E_Commerce.Web.CustomMiddlewares;
+using E_Commerce.Web.Factories;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 using Persistence.Repositories;
@@ -6,6 +9,7 @@ using Scalar.AspNetCore;
 using ServiceAbstraction;
 using ServiceImplementation;
 using ServiceImplementation.MappingProfiles;
+using Shared.ErrorModels;
 namespace E_Commerce.Web;
 
 public class Program {
@@ -30,6 +34,12 @@ public class Program {
         builder.Services.AddAutoMapper(
             cfg=> { },
             typeof(ProductProfile).Assembly);
+
+        builder.Services.Configure<ApiBehaviorOptions>((options) =>
+        {
+            options.InvalidModelStateResponseFactory = ApiResponseFactory
+                                                      .GenerateApiValidationErrorResponse;
+        });
         #endregion
 
         var app = builder.Build();
@@ -44,7 +54,18 @@ public class Program {
         {
             throw;
         }
+
+        //app.Use(async (RequestContext, NextMiddleWare) =>
+        //{
+        //    Console.WriteLine("Request Under Processing");
+        //    await NextMiddleWare.Invoke();
+        //    Console.WriteLine("Waiting Response");
+        //    Console.WriteLine(RequestContext.Response.Body.ToString());
+        //});
+
         // Configure the HTTP request pipeline.
+        app.UseMiddleware<CustomExceptionHandlerMiddleware>();
+
         if (app.Environment.IsDevelopment())
         {
             app.MapOpenApi();
