@@ -2,6 +2,7 @@
 public class ServiceManager
     (IUnitOfWork _unitOfWork,
     IBasketRepository _basketRepository,
+    UserManager<ApplicationUser> userManager,
     IMapper _mapper) : IServiceManager
 {
     private readonly Lazy<IProductService> _lazyProductService = 
@@ -12,4 +13,7 @@ public class ServiceManager
         new Lazy<IBasketService>(() => new BasketService(_basketRepository, _mapper));
     public IBasketService BasketService => _lazyBasketService.Value;
 
+    private readonly Lazy<IAuthenticationService> _lazyAuthService = 
+        new Lazy<IAuthenticationService>(() => new AuthenticationService(userManager, _mapper));
+    public IAuthenticationService AuthenticationService => _lazyAuthService.Value;
 }

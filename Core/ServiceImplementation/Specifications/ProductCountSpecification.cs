@@ -1,5 +1,4 @@
 ﻿namespace ServiceImplementation.Specifications;
-
 public class ProductCountSpecification : BaseSpecification<Product, int>
 {
     public ProductCountSpecification(ProductQueryParams queryParams)

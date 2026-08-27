@@ -22,17 +22,26 @@ public class CustomExceptionHandlerMiddleware(RequestDelegate _next ,
 
     private static async Task HandleExceptionAsync(HttpContext context, Exception ex)
     {
+        var Response = new ErrorToReturn()
+        {
+            ErrorMessage = ex.Message
+        }; 
         context.Response.StatusCode = ex switch
         {
             NotFoundException => StatusCodes.Status404NotFound,
+            UnauthorizedException => StatusCodes.Status401Unauthorized,
+            BadRequestException badRequestException => GetBadRequestErrors(badRequestException, Response),
             _ => StatusCodes.Status500InternalServerError
         };
-        var response = new ErrorToReturn()
-        {
-            statusCode = context.Response.StatusCode,
-            ErrorMessage = ex.Message
-        };
-        await context.Response.WriteAsJsonAsync(response);
+        Response.statusCode = context.Response.StatusCode;
+     
+        await context.Response.WriteAsJsonAsync(Response);
+    }
+
+    private static int GetBadRequestErrors(BadRequestException badRequestException, ErrorToReturn response)
+    {
+        response.Errors = badRequestException.Errors;
+        return  StatusCodes.Status400BadRequest;
     }
 
     private static async Task HandleNotFoundEndPointAsync(HttpContext context)

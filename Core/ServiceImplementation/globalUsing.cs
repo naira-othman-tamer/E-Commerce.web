@@ -13,3 +13,6 @@ global using System.Linq.Expressions;
 global using Shared;
 global using Shared.Enums;
 global using ServiceImplementation.Specifications;
+global using Domain.Models.IdentityModule;
+global using Microsoft.AspNetCore.Identity;
+global using Shared.DTOs.IdentityDTOs;
