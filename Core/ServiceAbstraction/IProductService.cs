@@ -1,5 +1,5 @@
 ﻿using Shared;
-using Shared.DTOs;
+using Shared.DTOs.ProductDTOs;
 namespace ServiceAbstraction;
 public interface IProductService{
     Task <PaginatedResult<ProductDto>> GetAllProductsAsync(ProductQueryParams queryParams);

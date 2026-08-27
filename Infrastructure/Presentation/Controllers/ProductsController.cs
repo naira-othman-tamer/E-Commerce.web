@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ServiceAbstraction;
 using Shared;
-using Shared.DTOs;
+using Shared.DTOs.ProductDTOs;
 using Shared.Enums;
 namespace Presentation.Controllers;
 

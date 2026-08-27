@@ -8,4 +8,5 @@ public interface IServiceManager {
     /// The service instance is initialized lazily by the implementation.
     /// </summary>
     public IProductService ProductService { get; }
+    public IBasketService BasketService { get; }
 }

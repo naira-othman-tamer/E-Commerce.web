@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Persistence.Data;
+using Persistence.Data; 
 using Persistence.Repositories;
 using StackExchange.Redis;
 namespace Persistence.Configurations;

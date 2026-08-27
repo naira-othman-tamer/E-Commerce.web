@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Models.ProductModule;
 using Microsoft.Extensions.Configuration;
-using Shared.DTOs;
+using Shared.DTOs.ProductDTOs;
 namespace ServiceImplementation.MappingProfiles;
 
 public class PictureUrlResolver(Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor)//, IConfiguration _configuration)

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Models.ProductModule;
-using Shared.DTOs;
+using Shared.DTOs.ProductDTOs;
 namespace ServiceImplementation.MappingProfiles;
 public class ProductProfile : Profile{
     public ProductProfile() {
