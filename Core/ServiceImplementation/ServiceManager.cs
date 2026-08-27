@@ -1,8 +1,4 @@
-﻿using AutoMapper;
-using Domain.Contracts;
-using ServiceAbstraction;
-namespace ServiceImplementation;
-
+﻿namespace ServiceImplementation;
 public class ServiceManager
     (IUnitOfWork _unitOfWork,
     IBasketRepository _basketRepository,

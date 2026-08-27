@@ -1,8 +1,4 @@
-﻿using Domain.Models.ProductModule;
-using Shared;
-using System.Linq.Expressions;
-
-namespace ServiceImplementation.Specifications;
+﻿namespace ServiceImplementation.Specifications;
 
 public class ProductCountSpecification : BaseSpecification<Product, int>
 {

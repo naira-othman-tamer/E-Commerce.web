@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using Domain.Models.ProductModule;
-using Shared.DTOs.ProductDTOs;
-namespace ServiceImplementation.MappingProfiles;
+﻿namespace ServiceImplementation.MappingProfiles;
 public class ProductProfile : Profile{
     public ProductProfile() {
         CreateMap<Product, ProductDto>()

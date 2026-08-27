@@ -1,0 +1,15 @@
+﻿global using AutoMapper;
+global using Domain.Contracts;
+global using Domain.Exceptions;
+global using Domain.Models.BasketModule;
+global using ServiceAbstraction;
+global using Shared.DTOs.BasketModuleDTOs;
+global using Microsoft.Extensions.DependencyInjection;
+global using ServiceImplementation.MappingProfiles;
+global using Domain.Models.ProductModule;
+global using Shared.DTOs.ProductDTOs;
+global using Domain.Models;
+global using System.Linq.Expressions;
+global using Shared;
+global using Shared.Enums;
+global using ServiceImplementation.Specifications;

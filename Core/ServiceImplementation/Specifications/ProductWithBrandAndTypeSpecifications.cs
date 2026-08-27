@@ -1,8 +1,4 @@
-﻿using Domain.Models.ProductModule;
-using Shared;
-using Shared.Enums;
-
-namespace ServiceImplementation.Specifications;
+﻿namespace ServiceImplementation.Specifications;
 /// <summary>
 /// Defines a specification for retrieving products with their associated
 /// brand and type, optionally filtered by brand ID and/or type ID.

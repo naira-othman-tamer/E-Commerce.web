@@ -1,12 +1,4 @@
-﻿using AutoMapper;
-using Domain.Contracts;
-using Domain.Exceptions;
-using Domain.Models.ProductModule;
-using ServiceAbstraction;
-using ServiceImplementation.Specifications;
-using Shared;
-using Shared.DTOs.ProductDTOs;
-namespace ServiceImplementation;
+﻿namespace ServiceImplementation;
 /// <summary>
 /// Provides application-level operations for retrieving products,
 /// brands, and product types.

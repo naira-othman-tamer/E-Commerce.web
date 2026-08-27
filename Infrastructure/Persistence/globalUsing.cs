@@ -1,0 +1,12 @@
+﻿global using Domain.Models.ProductModule;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Domain.Contracts;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Persistence.Data;
+global using Persistence.Repositories;
+global using StackExchange.Redis;
+global using Microsoft.AspNetCore.Identity;
+global using Domain.Models.IdentityModule;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

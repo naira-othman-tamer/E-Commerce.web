@@ -8,4 +8,5 @@ public interface IDataSeeding{
     /// </summary>
     /// <exception cref="NotImplementedException"></exception>
     Task DataSeedAsync();
+    Task IdentityDataSeedAsync();
 }

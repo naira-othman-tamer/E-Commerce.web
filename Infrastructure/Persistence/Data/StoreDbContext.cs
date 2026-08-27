@@ -1,6 +1,4 @@
-﻿using Domain.Models.ProductModule;
-using Microsoft.EntityFrameworkCore;
-namespace Persistence.Data;
+﻿namespace Persistence.Data;
 
 public class StoreDbContext : DbContext {
     public StoreDbContext(DbContextOptions<StoreDbContext> options) : base(options) { }

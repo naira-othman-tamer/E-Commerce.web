@@ -1,7 +1,4 @@
-﻿using Domain.Contracts;
-using Domain.Models;
-using System.Linq.Expressions;
-namespace ServiceImplementation.Specifications;
+﻿namespace ServiceImplementation.Specifications;
 
 public abstract class BaseSpecification<TEntity, TKey> 
     : ISpecifications<TEntity, TKey> where TEntity : BaseEntity<TKey>

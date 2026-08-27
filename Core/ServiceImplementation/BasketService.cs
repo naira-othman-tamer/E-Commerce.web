@@ -1,12 +1,4 @@
-﻿using AutoMapper;
-using Domain.Contracts;
-using Domain.Exceptions;
-using Domain.Models.BasketModule;
-using ServiceAbstraction;
-using Shared.DTOs.BasketModuleDTOs;
-
-namespace ServiceImplementation;
-
+﻿namespace ServiceImplementation;
 public class BasketService(IBasketRepository _basketRepository, IMapper _mapper) : IBasketService
 {
     public async Task<BasketDto> CreateOrUpdateBasketAsync(BasketDto basket)
