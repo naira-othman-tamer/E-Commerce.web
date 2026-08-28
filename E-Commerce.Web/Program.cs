@@ -10,6 +10,7 @@ public class Program {
 
         #region Add services to the container. 
         builder.Services.AddApplicationServices();
+        builder.Services.AddOpenApiWithJwtBearer();
         builder.Services.AddInfrastructreServices(builder.Configuration);
         builder.Services.AddWebApplicationServices();       
         builder.Services.AddJWTServices(builder.Configuration);       

@@ -110,7 +110,7 @@ public class AuthenticationService(
         var Token = new JwtSecurityToken
             (
             issuer : configuration.GetSection("JWTOptions")["Issuer"],
-            audience : configuration["JWTOptions : Audience"],
+            audience : configuration["JWTOptions:Audience"],
             claims : Claims,
             expires : DateTime.UtcNow.AddHours(1),
             signingCredentials: credintial
