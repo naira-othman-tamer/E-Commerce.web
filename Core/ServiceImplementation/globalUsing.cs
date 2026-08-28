@@ -16,3 +16,8 @@ global using ServiceImplementation.Specifications;
 global using Domain.Models.IdentityModule;
 global using Microsoft.AspNetCore.Identity;
 global using Shared.DTOs.IdentityDTOs;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.IdentityModel.Tokens;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
+global using System.Text;

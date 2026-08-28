@@ -1,8 +1,5 @@
-using Domain.Models.IdentityModule;
 using E_Commerce.Web.Extensions;
-using Microsoft.AspNetCore.Identity;
 using Persistence.Configurations;
-using Persistence.Identity;
 using ServiceImplementation.Configurations;
 namespace E_Commerce.Web;
 
@@ -15,6 +12,7 @@ public class Program {
         builder.Services.AddApplicationServices();
         builder.Services.AddInfrastructreServices(builder.Configuration);
         builder.Services.AddWebApplicationServices();       
+        builder.Services.AddJWTServices(builder.Configuration);       
         #endregion
         var app = builder.Build();
 
@@ -27,6 +25,7 @@ public class Program {
         }
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+        app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
         app.Run();
