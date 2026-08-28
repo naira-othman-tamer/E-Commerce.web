@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ServiceAbstraction;
-using Shared;
 using Shared.DTOs.BasketModuleDTOs;
-using Shared.DTOs.ProductDTOs;
 namespace Presentation.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class BasketController (IServiceManager _serviceManager) :ControllerBase
+public class BasketController (IServiceManager _serviceManager) :ApiBaseController
 {
     [HttpGet]
     public async Task <ActionResult<BasketDto>> GetBasket([FromQuery]string Key)
