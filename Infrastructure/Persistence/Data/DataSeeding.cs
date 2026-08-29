@@ -1,4 +1,5 @@
-﻿using Persistence.Identity;
+﻿using Domain.Models.OrderModule;
+using Persistence.Identity;
 using System.Text.Json;
 namespace Persistence.Data;
 public class DataSeeding(
@@ -44,7 +45,22 @@ public class DataSeeding(
                     _dbContext.Products.AddRange(products);
                 }
             }
+
+            if (!await _dbContext.DeliveryMethods.AnyAsync()) {
+                var deliveryMethodsData = await File
+                    .ReadAllTextAsync(@"..\Infrastructure\Persistence\Data\DataSeed\delivery.json");
+                var deliveryMethods = JsonSerializer
+                                         .Deserialize<List<DeliveryMethod>>(deliveryMethodsData);
+                if (deliveryMethods is not null && deliveryMethods.Any()) {
+                    _dbContext.DeliveryMethods.AddRange(deliveryMethods);
+                }
+            }
+
+
+
                 await _dbContext.SaveChangesAsync();
+
+
          }
         catch (Exception ex) {
             Console.WriteLine(ex.Message);
@@ -97,8 +113,7 @@ public class DataSeeding(
         }
         catch (Exception ex)
         {
-
-            throw;
+            Console.WriteLine(ex.Message);
         }
     }
 }
