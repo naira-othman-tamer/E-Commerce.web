@@ -31,8 +31,7 @@ public class AuthenticationController(IServiceManager _serviceManager) : ApiBase
     [HttpGet("CurrentUser")]
     public async Task<ActionResult<UserDto>> GetCurrentUser()
     {
-       var email = User.FindFirstValue(ClaimTypes.Email);
-       var user = await _serviceManager.AuthenticationService.GetCurrentUserAsync(email!);
+       var user = await _serviceManager.AuthenticationService.GetCurrentUserAsync(GetEmailFromToken());
         return Ok(user);
     }
 
@@ -40,8 +39,7 @@ public class AuthenticationController(IServiceManager _serviceManager) : ApiBase
     [HttpGet("CurrentUserAddress")]
     public async Task<ActionResult<AddressDto>> GetCurrentUserAddress()
     {
-        var email = User.FindFirstValue(ClaimTypes.Email);
-        var address= await _serviceManager.AuthenticationService.GetCurrentUserAddressAsync(email!);
+        var address= await _serviceManager.AuthenticationService.GetCurrentUserAddressAsync(GetEmailFromToken());
         return Ok(address);
     }
 
@@ -49,10 +47,8 @@ public class AuthenticationController(IServiceManager _serviceManager) : ApiBase
     [HttpPut("Address")]
     public async Task<ActionResult<AddressDto>> UpdateUserAddress(AddressDto addressDto) 
     {
-        var email = User.FindFirstValue(ClaimTypes.Email);
         var updatedAddress= await _serviceManager.AuthenticationService
-                    .UpdateCurrentUserAddressAsync(addressDto, email!);
+                    .UpdateCurrentUserAddressAsync(addressDto, GetEmailFromToken());
         return Ok(updatedAddress);
     }
-
 }

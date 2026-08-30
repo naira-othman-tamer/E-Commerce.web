@@ -19,4 +19,8 @@ public class ServiceManager
     private readonly Lazy<IAuthenticationService> _lazyAuthService = 
         new Lazy<IAuthenticationService>(() => new AuthenticationService(_userManager, _configuration, _mapper));
     public IAuthenticationService AuthenticationService => _lazyAuthService.Value;
+
+    private readonly Lazy<IOrderService> _lazyOrderService = 
+        new Lazy<IOrderService>(() => new OrderService(_unitOfWork, _mapper, _basketRepository));
+    public IOrderService OrderService => _lazyOrderService.Value;
 }
