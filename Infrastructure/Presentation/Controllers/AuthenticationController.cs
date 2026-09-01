@@ -20,7 +20,7 @@ public class AuthenticationController(IServiceManager _serviceManager) : ApiBase
         return Ok(user);
     }
 
-    [HttpGet("CheckEmail")]
+    [HttpGet("CheckEmail")] 
     public async Task<ActionResult<bool>> CheckEmail(string email)
     {
        var result = await _serviceManager.AuthenticationService.CheckEmailAsync(email);

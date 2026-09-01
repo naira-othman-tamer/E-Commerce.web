@@ -1,4 +1,5 @@
 ﻿using Domain.Models.OrderModule;
+using ServiceImplementation.Specifications.OrderModuleSpecifications;
 using Shared.DTOs.OrderDTOs;
 namespace ServiceImplementation;
 public class OrderService(IUnitOfWork unitOfWork, IMapper mapper, IBasketRepository basketRepository) : IOrderService
@@ -46,5 +47,25 @@ public class OrderService(IUnitOfWork unitOfWork, IMapper mapper, IBasketReposit
             Price = product.Price,
             Quantity = item.Quantity,
         };
+    }
+
+    public async Task<IEnumerable<DeliveryMethodDTo>> GetDeliveryMethodsAsync()
+    {
+        var deliveryMethods = await unitOfWork.GetRepository<DeliveryMethod, int>().GetAllAsync();
+        return mapper.Map<IEnumerable<DeliveryMethod>, IEnumerable<DeliveryMethodDTo>>(deliveryMethods);
+    }
+
+    public async Task<IEnumerable<OrderToReturnDto>> GetAllOrdersAsync(string Email)
+    {
+        var specification = new OrderSpecifications(Email);
+        var Orders = await unitOfWork.GetRepository<Order, Guid>().GetAllAsync(specification);
+        return mapper.Map<IEnumerable<Order>, IEnumerable<OrderToReturnDto>>(Orders);
+    }
+
+    public async Task<OrderToReturnDto> GetOrdersByIdAsync(Guid Id)
+    {
+        var specification = new OrderSpecifications(Id);
+        var Orders = await unitOfWork.GetRepository<Order, Guid>().GetByIdAsync(specification);
+        return mapper.Map<Order, OrderToReturnDto>(Orders);
     }
 }

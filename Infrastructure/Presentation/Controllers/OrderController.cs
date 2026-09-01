@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ServiceAbstraction;
 using Shared.DTOs.OrderDTOs;
-using System.Security.Claims;
 namespace Presentation.Controllers;
 
 public class OrderController (IServiceManager _serviceManager) :ApiBaseController
@@ -13,5 +12,23 @@ public class OrderController (IServiceManager _serviceManager) :ApiBaseControlle
     {
        var order = await _serviceManager.OrderService.CreateOrderAsync(orderRequest, GetEmailFromToken());
         return Ok (order);
+    }
+
+    [HttpGet()]
+    public async Task<ActionResult<IEnumerable<DeliveryMethodDTo>> GetAllDeliveryMethods()
+    {
+
+    }
+
+    [HttpGet()]
+    public async Task<ActionResult<IEnumerable<OrderToReturnDto>>> GetAllOrders()
+    {
+
+    }
+
+    [HttpGet("{Id}")]
+    public async Task<ActionResult<OrderToReturnDto>> GetOrderById(Guid Id)
+    {
+
     }
 }

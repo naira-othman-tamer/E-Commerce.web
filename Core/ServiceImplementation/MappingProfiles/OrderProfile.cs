@@ -13,6 +13,8 @@ public class OrderProfile : Profile
             .ForMember(d => d.ProductName,
             o => o.MapFrom(src => src.Product.ProductName))
             .ForMember(d => d.PictureUrl,
-            o => o.MapFrom<OrderItemPictureUrlResolver>());         
+            o => o.MapFrom<OrderItemPictureUrlResolver>());
+
+        CreateMap<DeliveryMethod, DeliveryMethodDTo>();
     }
 }
