@@ -14,21 +14,25 @@ public class OrderController (IServiceManager _serviceManager) :ApiBaseControlle
         return Ok (order);
     }
 
-    [HttpGet()]
-    public async Task<ActionResult<IEnumerable<DeliveryMethodDTo>> GetAllDeliveryMethods()
+    [HttpGet("DeliveryMethods")]
+    public async Task<ActionResult<IEnumerable<DeliveryMethodDTo>>> GetAllDeliveryMethods()
     {
-
+        var deliveryMethods=  await _serviceManager.OrderService.GetDeliveryMethodsAsync();
+        return Ok(deliveryMethods);
     }
 
-    [HttpGet()]
+    [Authorize]
+    [HttpGet]
     public async Task<ActionResult<IEnumerable<OrderToReturnDto>>> GetAllOrders()
     {
-
+        var orders = await _serviceManager.OrderService.GetAllOrdersAsync(GetEmailFromToken());
+        return Ok(orders);
     }
 
-    [HttpGet("{Id}")]
+    [HttpGet("{Id:guid}")]
     public async Task<ActionResult<OrderToReturnDto>> GetOrderById(Guid Id)
     {
-
+        var order = await _serviceManager.OrderService.GetOrdersByIdAsync(Id);
+        return Ok(order);
     }
 }
